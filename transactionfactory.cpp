@@ -6,26 +6,24 @@
 #include "viewInventory.h"
 #include "businesslogic.h"
 
-using namespace std;
-
-Transaction* TransactionFactory::createTransaction(string command, movieNode root, istringstream& iss) {
-  Transaction* t = nullptr;
-  char c = command[0];
-  switch(c) {
-    case 'B' :
-      t = new Borrow(root);
-      break;
-    case 'R' : 
-      t = new Return(root);
-      break;
-    case 'I' :
-      t = new ViewInventory(root);
-      break;
-    case 'H' :
-      t = new ViewHistory(root);
-      break;
-    default:
-      cout << "Invalid Command" << endl;
-  }
-  return t;
+Transaction* TransactionFactory::createTransaction(string command, istringstream& iss) {
+    Transaction* t = nullptr;
+    char c = command[0];
+    switch(c) {
+        case 'B' :
+            t = new Borrow();
+            break;
+        case 'R' : 
+            t = new Return();
+            break;
+        case 'I' :
+            t = new ViewInventory();
+            break;
+        case 'H' :
+            t = new ViewHistory();
+            break;
+        default:
+        cout << "Invalid Command" << endl;
+    }
+    return t;
 }

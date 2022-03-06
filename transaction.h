@@ -1,18 +1,20 @@
 #ifndef TRANSACTION_H
 #define TRANSACTION_H
 
+#include "customer.h"
+#include "movie.h"
+#include <map>
 using namespace std;
 
 // A class representing a general transaction.
 class Transaction {
 public:
     Transaction();
-    virtual void doTransaction(Inventory* customer, string movie) const = 0;
+    virtual void doTransaction(Customer* customer, string movie) const = 0;
     // sets the store inventory to add/remove from
-    static void setInventory(Inventory* store);
+    static void setInventory(map<Movie*, int>* newStore);
 private:
-    static Inventory* store;
-    static Customer* cust;
+    static map<Movie*, int>* store;
 };
 
 #endif

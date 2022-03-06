@@ -1,8 +1,8 @@
-#include <string>
-
 #ifndef _CUSTOMER_H
 #define _CUSTOMER_H
 
+#include <string>
+using namespace std;
 
 class Customer {
 public:

@@ -6,45 +6,45 @@
 
 using namespace std;
 
-bool BusinessLogic::buildMovies(string filename) {
-  ifstream infile(filename);
-	if (!infile.good()) {
-		cout << "File could not be opened." << endl;
-		return false;
-	}
+BusinessLogic::BusinessLogic() {}
 
-  return true;
+bool BusinessLogic::buildMovies(string filename) {
+    ifstream infile(filename);
+    if (!infile.good()) {
+        cout << "File could not be opened." << endl;
+        return false;
+    }
+    Transaction::setInventory(store);
+    return true;
 }
 
 bool BusinessLogic::buildCustomers(string filename) {
-  ifstream infile(filename);
-  if (!infile.good()) {
-		cout << "File could not be opened." << endl;
+    ifstream infile(filename);
+    if (!infile.good()) {
+	    cout << "File could not be opened." << endl;
 		return false;
 	}
-
-  return true;
+    return true;
 }
 
 bool BusinessLogic::processTransactions(string filename) {
-  ifstream infile(filename);
-  if (!infile.good()) {
+    ifstream infile(filename);
+    if (!infile.good()) {
 		cout << "File could not be opened." << endl;
 		return false;
 	}
-  TransactionFactory tf;
-  while(!infile.eof()) {
-    string line = "";
-    getline(infile, line);
-    if (!line.empty()) { //read through each line
-      string command;
-      istringstream iss(line);
-      iss >> command;
-      Transaction* t = tf.createTransaction(command, root, iss);
-      if (t != nullptr) {
-        t->doTransaction();
-      }  
+    while(!infile.eof()) {
+        string line = "";
+        getline(infile, line);
+        if (!line.empty()) { //read through each line
+            string command;
+            istringstream iss(line);
+            iss >> command;
+            Transaction* t = TransactionFactory::createTransaction(command, iss);
+            if (t != nullptr) {
+                t->doTransaction(nullptr, "");
+            }  
+        }
     }
-  }
-  return true;
+    return true;
 }

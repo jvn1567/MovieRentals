@@ -7,5 +7,5 @@ class ViewInventory : public Transaction {
 public:
     ViewInventory();
     // Prints the store's inventory to console.
-    virtual void doTransaction(CustomerInventory* store = nullptr, string movie = "") const;
+    virtual void doTransaction(Customer* customer = nullptr, string movie = "") const;
 };

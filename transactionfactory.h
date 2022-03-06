@@ -1,9 +1,8 @@
-#include <string.h>
-#include <sstream>
-
-
 #ifndef TRANSACTIONFACTORY_H
 #define TRANSACTIONFACTORY_H
+
+#include <string.h>
+#include <sstream>
 
 using namespace std;
 

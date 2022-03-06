@@ -1,10 +1,13 @@
-#include <string.h>
+#ifndef _BORROW_H
+#define _BORROW_H
+
 #include "transaction.h"
-#include "customer.h"
 
 class Borrow: public Transaction {
 public:
-  Borrow();
-  // Removes a movie from the store and adds it to the customer's inventory.
-  virtual void doTransaction(Customer* customer, string movie) const;
-}
+    Borrow();
+    // Removes a movie from the store and adds it to the customer's inventory.
+    virtual void doTransaction(Customer* customer, string movie) const;
+};
+
+#endif
