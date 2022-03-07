@@ -13,8 +13,6 @@ public:
     virtual void doTransaction(Customer* customer, string movie) const = 0;
     // sets the store inventory to add/remove from
     static void setInventory(map<Movie*, int>* newStore);
-private:
-    static map<Movie*, int>* store;
 };
 
 #endif

@@ -1,20 +1,26 @@
 #include "transaction.h"
 #include "transactionfactory.h"
+#include "moviefactory.h"
 #include "borrow.h"
 #include "return.h"
 #include "viewhistory.h"
 #include "viewInventory.h"
 #include "businesslogic.h"
 
-Transaction* TransactionFactory::createTransaction(string command, istringstream& iss) {
+Transaction* TransactionFactory::createTransaction(string command, istringstream& iss, map<Movie*, int>* store, CustomerNode* customer) {
     Transaction* t = nullptr;
     char c = command[0];
     switch(c) {
         case 'B' :
-            t = new Borrow();
+            iss >> customerId;
+            iss >> movieType;
+            Movie* movie = MovieFactory::getMovie(movieType, iss); //retrive Movie
+            t = new Borrow(store, customer, movie);
             break;
         case 'R' : 
-            t = new Return();
+            
+            Movie* movie = MovieFactory::getMovie(movieType, iss); //retrive Movie
+            t = new Return(store, customer, movie);
             break;
         case 'I' :
             t = new ViewInventory();
