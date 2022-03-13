@@ -9,7 +9,10 @@ using namespace std;
 // Reads in raw transaction data to create the correct Transaction type.
 class TransactionFactory {
 public:
-    static Transaction* createTransaction(string command, istringstream& input);
+    TransactionFactory();
+    Transaction* createTransaction(map<Movie*, int>* store, string line);
+private:
+    Movie* getMovie(map<Movie*, int>* store, string movieType, istringstream& iss);
 };
 
 #endif

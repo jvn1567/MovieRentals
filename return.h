@@ -7,9 +7,11 @@
 
 class Return: public Transaction {
 public:
-    Return();
+    Return(Movie* movie);
     // Takes the movie from the customer's inventory and adds it back to the store.
-    virtual void doTransaction(Customer* customer, string movie) const;
+    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers) const;
+private:
+    Movie* movie;
 };
 
 #endif

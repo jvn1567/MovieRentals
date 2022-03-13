@@ -5,9 +5,12 @@
 
 class Borrow: public Transaction {
 public:
-    Borrow();
+    Borrow(int customerId, Movie* movie);
     // Removes a movie from the store and adds it to the customer's inventory.
-    virtual void doTransaction(Customer* customer, string movie) const;
+    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers) const;
+private:
+    int customerId;
+    Movie* movie;
 };
 
 #endif

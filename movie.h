@@ -23,5 +23,4 @@ private:
     virtual bool lessThan(const Movie& other) const = 0;
     virtual bool equalTo(const Movie& other) const = 0;
 };
-
 #endif
