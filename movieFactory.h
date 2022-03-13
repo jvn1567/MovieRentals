@@ -8,7 +8,8 @@
 
 class MovieFactory {
 public:
-    static Movie* makeMovie(string type, istringstream& input);
+    static Movie* makeMovie(char type, istringstream& input);
+    static Movie* makePartialMovie(char type, istringstream& input);
 };
 
 #endif

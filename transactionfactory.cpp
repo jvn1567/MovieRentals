@@ -1,4 +1,3 @@
-#include "transaction.h"
 #include "transactionfactory.h"
 #include "moviefactory.h"
 #include "borrow.h"
@@ -7,7 +6,7 @@
 #include "viewInventory.h"
 #include "businesslogic.h"
 
-Transaction* TransactionFactory::createTransaction(string command, istringstream& iss, map<Movie*, int>* store, CustomerNode* customer) {
+Transaction* TransactionFactory::createTransaction(string command, istringstream& iss) {
     Transaction* t = nullptr;
     char c = command[0];
     switch(c) {

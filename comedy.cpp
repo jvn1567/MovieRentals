@@ -1,6 +1,6 @@
 #include "comedy.h"
 
-Comedy::Comedy(string type, string title, string director, int releaseYear) :
+Comedy::Comedy(char type, string title, string director, int releaseYear) :
     Movie(type, title, director, releaseYear) {
 }
 

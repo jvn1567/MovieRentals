@@ -1,19 +1,8 @@
 #ifndef BUSINESSLOGIC_H
 #define BUSINESSLOGIC_H
 
-#include <map>
-#include "customer.h"
+#include "customerlist.h"
 #include "movie.h"
-
-struct CustomerNode {
-    Customer* customer;
-    CustomerNode* next;
-    CustomerNode(Customer* customer = nullptr, CustomerNode* next = nullptr);
-};
-
-struct MovieNode {
-
-}
 
 // A class representing a general transaction.
 class BusinessLogic {
@@ -25,15 +14,9 @@ public:
     bool processTransactions(string filename);
     
 private:
-    //map<Movie*, int>* store;
 
-    static CustomerNode** customers;
-
-    int arraySize;
-    void addCustomer(int customerId);
-    int hash(int customerId) const;
-    int rehash();
-    Customer* getCustomer(int customerId);
+    MovieList* store;
+    CustomerList* customers;
 };
 
 #endif

@@ -8,8 +8,13 @@
 using namespace std;
 
 BusinessLogic::BusinessLogic() {
-    arraySize = 101;
-    customers = new CustomerNode*[arraySize];
+    customers = new CustomerList;
+    store = new MovieList;
+}
+
+BusinessLogic::~BusinessLogic() {
+    delete store;
+    delete customers;
 }
 
 bool BusinessLogic::buildMovies(string filename) {
@@ -18,27 +23,22 @@ bool BusinessLogic::buildMovies(string filename) {
         cout << "File could not be opened." << endl;
         return false;
     }
-    while(!infile.eof()) {
+    while(!infile.eof()) { //read through each line
         string line = "";
         getline(infile, line);
-        if (!line.empty()) { //read through each line
+        if (!line.empty()) {
             istringstream iss(line);
-            string movieType, rawCount;
-            getline(iss, movieType);
-            movieType = movieType.substr(0, 1);
-            getline(iss, rawCount);
+            string rawType, rawCount;
+            char movieType;
+            getline(iss, rawType, ' ');
+            movieType = rawType[0];
+            getline(iss, rawCount, ' ');
             rawCount = rawCount.substr(0, rawCount.length() - 1);
             int count = stoi(rawCount);
-            store[MovieFactory::makeMovie(movieType, iss)] += count;
+            store->insert(MovieFactory::makeMovie(movieType, iss), count);
         }
     }
-    Transaction::setInventory(store);
     return true;
-}
-
-void BusinessLogic::addCustomer(int customerId) {
-    int index = hash(customerId);
-    customers[index] = new CustomerNode(new Customer(customerId), customers[index]);
 }
 
 bool BusinessLogic::buildCustomers(string filename) {
@@ -47,17 +47,15 @@ bool BusinessLogic::buildCustomers(string filename) {
 	    cout << "File could not be opened." << endl;
 		return false;
 	}
-    while(!infile.eof()) {
+    while(!infile.eof()) { //read through each line
         string line = "";
         getline(infile, line);
-        //add customers to hash
-        if (!line.empty()) { //read through each line
+        if (!line.empty()) {
             istringstream iss(line);
             int customerId;
             string firstName, lastName;
             iss >> customerId >> lastName >> firstName;
-            addCustomer(customerId);
-            getline(infile, line);
+            customers->add(new Customer(customerId));
         }
     }
     return true;
@@ -73,14 +71,13 @@ bool BusinessLogic::processTransactions(string filename) {
     while(!infile.eof()) {
         string line = "";
         getline(infile, line);
-        
         if (!line.empty()) { //read through each line
             string command;
             istringstream iss(line);
             iss >> command;
             Transaction* t = tf.createTransaction(command, iss);
             if (t != nullptr) {
-                t->doTransaction(store, customers);
+                t->doTransaction(customers);
             }  
         }
     }

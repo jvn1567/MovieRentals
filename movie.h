@@ -7,15 +7,15 @@ using namespace std;
 
 class Movie {
 public:
-    Movie(string type, string title, string director, int releaseYear);
-    string getType() const;
+    Movie(char type, string title, string director, int releaseYear);
+    char getType() const;
     string getTitle() const;
     string getDirector() const;
     int getReleaseYear() const;
     bool operator<(const Movie& other) const;
     bool operator==(const Movie& other) const;
 protected:
-    string type;
+    char type;
     string title;
     string director;
     int releaseYear;

@@ -13,5 +13,18 @@ void Customer::insert(Movie* movie) {
 }
 
 bool Customer::remove(Movie* movie) {
-    bag.remove(movie);
+    return bag.remove(movie);
+}
+
+void Customer::addTransaction(string info) {
+    history.push_back(info);
+}
+
+string Customer::getHistory() const {
+    string hist;
+    for (string line : history) {
+        hist += line;
+        hist += "\n";
+    }
+    return hist;
 }

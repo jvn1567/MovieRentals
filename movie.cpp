@@ -1,10 +1,10 @@
 #include "movie.h"
 
-Movie::Movie(string type, string title, string director, int releaseYear) :
+Movie::Movie(char type, string title, string director, int releaseYear) :
     type(type), title(title), director(director), releaseYear(releaseYear) {
 }
 
-string Movie::getType() const {
+char Movie::getType() const {
     return type;
 }
 

@@ -5,7 +5,7 @@
 
 class Comedy : public Movie {
 public:
-    Comedy(string type, string title, string director, int releaseYear);
+    Comedy(char type, string title, string director, int releaseYear);
 private:
     virtual bool lessThan(const Movie& other) const;
     virtual bool equalTo(const Movie& other) const;

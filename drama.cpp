@@ -1,6 +1,6 @@
 #include "drama.h"
 
-Drama::Drama(string type, string title, string director, int releaseYear) :
+Drama::Drama(char type, string title, string director, int releaseYear) :
     Movie(type, title, director, releaseYear) {
 }
 

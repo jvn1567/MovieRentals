@@ -1,6 +1,6 @@
 #include "classic.h"
 
-Classic::Classic(string type, string title, string director,
+Classic::Classic(char type, string title, string director,
         string majorActor, int releaseMonth, int releaseYear) :
     Movie(type, title, director, releaseYear),
     majorActor(majorActor),
@@ -23,5 +23,7 @@ bool Classic::equalTo(const Movie& other) const {
     int releaseOther = (otherC->releaseYear * 12 + otherC->releaseMonth);
     bool releaseEqual = releaseThis == releaseOther;
     bool actorEqual = majorActor < otherC->majorActor;
-    return releaseEqual && actorEqual;
+    // special case for same movie with different actor listed
+    bool ignoreActor = majorActor == "" || otherC->majorActor == "";
+    return releaseEqual && (actorEqual || ignoreActor);
 }

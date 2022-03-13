@@ -5,7 +5,7 @@
 
 class Classic : public Movie {
 public:
-    Classic(string type, string title, string director, string majorActor,
+    Classic(char type, string title, string director, string majorActor,
             int releaseMonth, int releaseYear);
 private:
     string majorActor;
