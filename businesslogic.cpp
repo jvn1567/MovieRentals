@@ -67,18 +67,18 @@ bool BusinessLogic::processTransactions(string filename) {
 		cout << "File could not be opened." << endl;
 		return false;
 	}
-    TransactionFactory tf(store);
+    
     while(!infile.eof()) {
+        TransactionFactory tf;
         string line = "";
         getline(infile, line);
+        
         if (!line.empty()) { //read through each line
-            string command;
-            istringstream iss(line);
-            iss >> command;
-            Transaction* t = tf.createTransaction(command, iss);
+            Transaction* t = tf.createTransaction(store, line);
             if (t != nullptr) {
-                t->doTransaction(customers);
-            }  
+                t->doTransaction(store, customers);
+                delete t;
+            }
         }
     }
     return true;

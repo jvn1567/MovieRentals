@@ -1,7 +1,9 @@
 #include "viewinventory.h"
 
-ViewInventory::ViewInventory() {}
+ViewInventory::ViewInventory(map<Movie*, int>* store) {
+    this->store = store;
+}
 
-void ViewInventory::doTransaction(Customer* customer, string movie) const {
+void ViewInventory::doTransaction(map<Movie*, int>* store, CustomerNode** customers = nullptr) const {
     //
 }

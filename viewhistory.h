@@ -5,7 +5,9 @@
 // A class representing a customer viewing their transaction history.
 class ViewHistory : public Transaction {
 public:
-    ViewHistory();
+    ViewHistory(int customerId = 0);
     // Prints the customer's transaction history to console
-    virtual void doTransaction(Customer* customer, string movie = "") const;
+    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers) const;
+private:
+    int customerId;
 };

@@ -1,7 +1,9 @@
 #include "return.h"
 
-Return::Return() {}
+Return::Return(Movie* movie) {
+    this->movie = movie;
+}
 
-void Return::doTransaction(Customer* customer, string Movie) const {
+void Return::doTransaction(map<Movie*, int>* store, CustomerNode** customers) const {
     //
 }
