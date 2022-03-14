@@ -1,7 +1,9 @@
 #include "businesslogic.h"
-#include "transaction.h"
-#include "transactionfactory.h"
+//#include "transaction.h"
+//#include "transactionfactory.h"
 #include "movieFactory.h"
+#include "customerlist.h"
+#include "customer.h"
 #include <sstream>
 #include <fstream>
 
@@ -14,7 +16,7 @@ BusinessLogic::BusinessLogic() {
 
 BusinessLogic::~BusinessLogic() {
     delete store;
-    delete customers;
+    //delete customers;
 }
 
 bool BusinessLogic::buildMovies(string filename) {
@@ -23,9 +25,9 @@ bool BusinessLogic::buildMovies(string filename) {
         cout << "File could not be opened." << endl;
         return false;
     }
+    string line = "";
+    getline(infile, line);
     while(!infile.eof()) { //read through each line
-        string line = "";
-        getline(infile, line);
         if (!line.empty()) {
             istringstream iss(line);
             string rawType, rawCount;
@@ -37,7 +39,9 @@ bool BusinessLogic::buildMovies(string filename) {
             int count = stoi(rawCount);
             store->insert(MovieFactory::makeMovie(movieType, iss), count);
         }
+        getline(infile, line);
     }
+    store->viewInventory();
     return true;
 }
 
@@ -47,20 +51,24 @@ bool BusinessLogic::buildCustomers(string filename) {
 	    cout << "File could not be opened." << endl;
 		return false;
 	}
+    string line = "";
+    getline(infile, line);
     while(!infile.eof()) { //read through each line
-        string line = "";
-        getline(infile, line);
         if (!line.empty()) {
             istringstream iss(line);
             int customerId;
             string firstName, lastName;
             iss >> customerId >> lastName >> firstName;
-            customers->add(new Customer(customerId));
+            Customer* newCustomer = new Customer(customerId);
+            customers->add(newCustomer);
         }
+        getline(infile, line);
     }
+    customers->printAll();
     return true;
 }
 
+/*
 bool BusinessLogic::processTransactions(string filename) {
     ifstream infile(filename);
     if (!infile.good()) {
@@ -86,3 +94,4 @@ bool BusinessLogic::processTransactions(string filename) {
     }
     return true;
 }
+*/
