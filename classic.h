@@ -6,7 +6,8 @@
 class Classic : public Movie {
 public:
     Classic(char type, string title, string director, string majorActor,
-        int releaseMonth, int releaseYear);
+            int releaseMonth, int releaseYear);
+    virtual string toString() const;
 private:
     string majorActor;
     int releaseMonth;

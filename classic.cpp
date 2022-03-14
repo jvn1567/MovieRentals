@@ -27,3 +27,8 @@ bool Classic::equalTo(const Movie& other) const {
     bool ignoreActor = majorActor == "" || otherC->majorActor == "";
     return releaseEqual && (actorEqual || ignoreActor);
 }
+
+string Classic::toString() const {
+    string out = director + ", " + title + ", " + majorActor;
+    return out + " " + to_string(releaseYear) + " " + to_string(releaseMonth);
+}
