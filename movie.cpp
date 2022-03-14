@@ -34,7 +34,7 @@ bool Movie::operator==(const Movie& other) const {
     if (type != other.type) {
         return false;
     } else {
-        return this->equalTo(other);
+        return equalTo(other);
     }
 }
 

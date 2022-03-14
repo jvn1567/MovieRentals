@@ -5,7 +5,7 @@
 #include "borrow.h"
 #include "return.h"
 #include "viewhistory.h"
-#include "viewInventory.h"
+#include "viewinventory.h"
 #include "businesslogic.h"
 
 /*

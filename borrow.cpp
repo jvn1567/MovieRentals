@@ -17,6 +17,7 @@ bool Borrow::doTransaction() const {
     bool inStock = false;
     if (customer == nullptr) {
         cout << "Invalid customer." << endl;
+	    delete movie;
     } else if (movie == nullptr) {
         cout << "Invalid movie information." << endl;
     } else {
@@ -32,14 +33,19 @@ bool Borrow::doTransaction() const {
         }
         // update customer if in stock
         if (inStock) {
+            bool alreadyInTree = customer->count(movie) > -1;
             customer->insert(movie);
             success = true;
             string tag = "Borrowed: ";
             tag += (temp == nullptr ? movie->toStringShort() : temp->toStringShort());
             customer->addTransaction(tag);
-        } else { 
+            if (alreadyInTree) {
+                delete movie;
+            }
+        } else {
             cout << "Movie is out of stock." << endl;
             cout << movie->toStringShort() << endl;    // DEBUG 
+	        delete movie;
         }
         if (temp != nullptr) {
             delete temp;

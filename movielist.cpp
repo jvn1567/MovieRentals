@@ -84,7 +84,7 @@ int MovieList::count(Movie* movie) const {
             curr = curr->right;
         }
     }
-    return 0;
+    return -1;
 }
 
 Movie* MovieList::findMovieHelper(MovieNode* node, Movie* movie) const {

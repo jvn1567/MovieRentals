@@ -1,7 +1,7 @@
 #include "businesslogic.h"
 #include "transaction.h"
 #include "transactionfactory.h"
-#include "movieFactory.h"
+#include "moviefactory.h"
 #include "customerlist.h"
 #include "customer.h"
 #include <sstream>

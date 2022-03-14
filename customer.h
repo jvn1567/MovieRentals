@@ -10,6 +10,7 @@ public:
     int getID() const;
     void insert(Movie* movie);
     bool remove(Movie* movie);
+    int count(Movie* movie) const;
     void addTransaction(string info);
     string getHistory() const;
 private:

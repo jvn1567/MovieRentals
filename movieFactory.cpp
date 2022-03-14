@@ -1,4 +1,4 @@
-#include "movieFactory.h"
+#include "moviefactory.h"
 
 Movie* MovieFactory::makeMovie(char type, istringstream& input) {
     string title, director, yearRaw, discard;
@@ -59,10 +59,10 @@ Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
         case 'C': // classic
             getline(input, monthRaw, ' ');
             getline(input, yearRaw, ' ');
-            getline(input, actor);
+	    input >> firstActor >> lastActor;
             month = stoi(monthRaw);
             year = stoi(yearRaw);
-            movie = new Classic(type, "", "", actor, month, year);
+            movie = new Classic(type, "", "", firstActor + " " + lastActor, month, year);
             break;
         default:
             break;
