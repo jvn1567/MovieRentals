@@ -87,13 +87,8 @@ void CustomerList::printAll() {
 }
 
 void CustomerList::add(Customer* customer) {
-    try {
-        if (customer == nullptr) {
-            throw invalid_argument("INVALID CUSTOMER");
-        }
-    }
-    catch (invalid_argument& s) {
-        cout << s.what() << endl;
+    if (customer == nullptr) {
+        throw invalid_argument("INVALID CUSTOMER");
     }
     int index = hash(customer->getID());
     customers[index] = new CustomerNode{customer, customers[index]};

@@ -16,7 +16,7 @@ BusinessLogic::BusinessLogic() {
 
 BusinessLogic::~BusinessLogic() {
     delete store;
-    //delete customers;
+    delete customers;
 }
 
 bool BusinessLogic::buildMovies(string filename) {
@@ -37,11 +37,13 @@ bool BusinessLogic::buildMovies(string filename) {
             getline(iss, rawCount, ' ');
             rawCount = rawCount.substr(0, rawCount.length() - 1);
             int count = stoi(rawCount);
-            store->insert(MovieFactory::makeMovie(movieType, iss), count);
+            Movie* movie = MovieFactory::makeMovie(movieType, iss);
+            if (movie != nullptr) {
+                store->insert(movie, count);
+            }
         }
         getline(infile, line);
     }
-    //store->viewInventory();     //DELETE BEFORE RELEASE
     return true;
 }
 
@@ -64,13 +66,11 @@ bool BusinessLogic::buildCustomers(string filename) {
         }
         getline(infile, line);
     }
-    //customers->printAll();     //DELETE BEFORE RELEASE
     return true;
 }
 
 
 bool BusinessLogic::processTransactions(string filename) {
-    //cout << "Begin processTransactions" << endl;      //DELETE BEFORE RELEASE
     ifstream infile(filename);
     if (!infile.good()) {
 		cout << "File could not be opened." << endl;
@@ -78,21 +78,22 @@ bool BusinessLogic::processTransactions(string filename) {
 	}
     string line = "";
     getline(infile, line);
-    //cout << "BL:pT: line: " << line << endl;      //DELETE BEFORE RELEASE
     while(!infile.eof()) {
+        cout << line << endl; // DEBUG REMOVE BEFORE FINAL
         TransactionFactory tf;
         if (!line.empty()) { //read through each line
             Transaction* t = tf.createTransaction(store, customers, line);
             if (t != nullptr) {
                 bool success = t->doTransaction();
                 if (!success) {
-                    cout << "Transaction failed." << endl;
+                    cout << "Transaction failed." << endl << endl;
                 }
-                //delete t;
+                delete t;
+            } else {
+                cout << "Invalid Command" << endl << endl;
             }
         }
         getline(infile, line);
-        cout << "BL:pT: line2: " << line << endl;      //DELETE BEFORE RELEASE
     }
     return true;
 }

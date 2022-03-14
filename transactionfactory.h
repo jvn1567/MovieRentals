@@ -12,7 +12,6 @@ using namespace std;
 // Reads in raw transaction data to create the correct Transaction type.
 class TransactionFactory {
 public:
-    TransactionFactory();
     Transaction* createTransaction(MovieList* store, CustomerList* customers, string line);
 private:
     Movie* getMovie(MovieList* store, string movieType, istringstream& iss);

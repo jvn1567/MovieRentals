@@ -10,7 +10,7 @@
 class Return: public Transaction {
 public:
     Return(MovieList* store = nullptr, Customer* customer = nullptr, Movie* movie = nullptr);
-    //~Return();
+    ~Return();
     // Takes the movie from the customer's inventory and adds it back to the store.
     virtual bool doTransaction() const;
 private:

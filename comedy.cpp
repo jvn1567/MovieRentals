@@ -16,3 +16,7 @@ bool Comedy::equalTo(const Movie& other) const {
     bool yearSame = releaseYear == other.getReleaseYear();
     return titleSame && yearSame;
 }
+
+string Comedy::toStringShort() const {
+    return title + ", " + to_string(releaseYear);
+}

@@ -14,13 +14,11 @@ Movie* MovieFactory::makeMovie(char type, istringstream& input) {
         case 'F': // comedy
             getline(input, yearRaw);
             year = stoi(yearRaw.substr(1));
-            //cout << type << " : " << title << " : " << director << " : " << year << endl;
             movie = new Comedy(type, title, director, year);
             break;
         case 'D': // drama
             getline(input, yearRaw);
             year = stoi(yearRaw.substr(1));
-            //cout << type << " : " << title << " : " << director << " : " << year << endl;
             movie = new Drama(type, title, director, year);
             break;
         case 'C': // classic
@@ -32,7 +30,6 @@ Movie* MovieFactory::makeMovie(char type, istringstream& input) {
             year = stoi(yearRaw);
             month = stoi(monthRaw);
             actor = actorFirst + " " + actorLast;
-            //cout << type << " : " << title << " : " << director << " : " << actor << " : " << month << " : " << year << endl;
             movie = new Classic(type, title, director, actor, month, year);
             break;
         default:
@@ -48,15 +45,15 @@ Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
     int month, year;
     switch (type) {
         case 'F': // comedy
-            input >> month >> year >> firstActor >> lastActor;
-            cout << "makePartialMovie: " << type << " : " << title << " : " << year << endl;
+            getline(input, title, ',');
+            getline(input, yearRaw);
+            year = stoi(yearRaw);
             movie = new Comedy(type, title, "", year);
             break;
         case 'D': // drama
             getline(input, director, ',');
             getline(input, title, ',');
             title = title.substr(1);
-            cout << "makePartialMovie: " << type << " : " << title << " : " << director << endl;
             movie = new Drama(type, title, director, 0);
             break;
         case 'C': // classic
@@ -65,8 +62,9 @@ Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
             getline(input, actor);
             month = stoi(monthRaw);
             year = stoi(yearRaw);
-            cout << "makePartialMovie: " << type << " : " << actor << " : " << month << " : " << year << endl;
             movie = new Classic(type, "", "", actor, month, year);
+            break;
+        default:
             break;
     }
     return movie;

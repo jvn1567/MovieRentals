@@ -22,13 +22,22 @@ bool Classic::equalTo(const Movie& other) const {
     int releaseThis = (releaseYear * 12 + releaseMonth); // works to year 2666
     int releaseOther = (otherC->releaseYear * 12 + otherC->releaseMonth);
     bool releaseEqual = releaseThis == releaseOther;
-    bool actorEqual = majorActor < otherC->majorActor;
+    bool actorEqual = majorActor == otherC->majorActor;
     // special case for same movie with different actor listed
     bool ignoreActor = majorActor == "" || otherC->majorActor == "";
-    return releaseEqual && (actorEqual || ignoreActor);
+    bool titleEqual = title == otherC->title;
+    return (releaseEqual && actorEqual) || (ignoreActor && titleEqual);
+}
+
+Classic* Classic::actorlessCopy() const {
+    return new Classic(type, title, director, "", releaseMonth, releaseYear);
 }
 
 string Classic::toString() const {
     string out = director + ", " + title + ", " + majorActor;
     return out + " " + to_string(releaseYear) + " " + to_string(releaseMonth);
+}
+
+string Classic::toStringShort() const {
+    return to_string(releaseMonth) + " " + to_string(releaseYear) + " " + majorActor;
 }

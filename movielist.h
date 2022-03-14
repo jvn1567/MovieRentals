@@ -22,9 +22,12 @@ public:
 
     // Accessors
     int count(Movie* movie) const;
-    Movie* findMovie(char type, istringstream& input);
 
-    void viewInventory();
+    // Get full movie information from sorting information
+    Movie* findMovie(Movie* movie) const;
+
+    // Print inventory
+    void viewInventory() const;
 
 private:
 
@@ -35,19 +38,16 @@ private:
         MovieNode* left;
         MovieNode* right;
         // Constructor
-        MovieNode(Movie* movie, int count, MovieNode* left = nullptr,
+        MovieNode(Movie* movie, int count = 0, MovieNode* left = nullptr,
                 MovieNode* right = nullptr);
     };
 
-    Movie* findComedy(string title, int year);
-    Movie* findDrama(string director, string title);
-    Movie* findClassic(int month, int year, string actor);
-
     //Helpers
+    void deleteHelper(MovieNode*& node);
     void insertHelper(MovieNode*& node, Movie* movie, int count);
     bool removeHelper(MovieNode*& node, Movie* movie, int count);
-    void deleteHelper(MovieNode*& node);
-    void viewInventoryHelper(MovieNode* curr);
+    Movie* findMovieHelper(MovieNode* node, Movie* movie) const;
+    void viewInventoryHelper(MovieNode* curr) const;
 
     // Members
     MovieNode* root;

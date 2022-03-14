@@ -4,6 +4,8 @@ Movie::Movie(char type, string title, string director, int releaseYear) :
     type(type), title(title), director(director), releaseYear(releaseYear) {
 }
 
+Movie::~Movie() {}
+
 char Movie::getType() const {
     return type;
 }

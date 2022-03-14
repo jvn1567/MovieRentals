@@ -10,6 +10,7 @@ bool ViewInventory::doTransaction() const {
         return false;
     } else {
         store->viewInventory();
+        cout << endl;
         return true;
     }
 }

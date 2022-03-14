@@ -16,3 +16,7 @@ bool Drama::equalTo(const Movie& other) const {
     bool titleSame = title == other.getTitle();
     return directorSame && titleSame;
 }
+
+string Drama::toStringShort() const {
+    return director + ", " + title + ",";
+}

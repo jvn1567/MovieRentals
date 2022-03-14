@@ -5,25 +5,22 @@ Return::Return(MovieList* store, Customer* customer, Movie* movie) {
     this->customer = customer;
     this->movie = movie;
 }
-/*
+
 Return::~Return() {
-    //delete movie;
+    delete movie;
 }
-*/
 
 bool Return::doTransaction() const {
-    bool success = false;
     if (customer == nullptr) {
         cout << "Invalid customer." << endl;
-        return false;
-    }
-
-    success = customer->remove(movie);
-    if (!success) {
-        cout << "Movie was not borrowed." << endl;
-    } else {
+    } else if (movie == nullptr) {
+        cout << "Invalid movie information." << endl;
+    } else if (customer->remove(movie)) {
         store->insert(movie);
-        success = true;
+        customer->addTransaction("Returned: " + movie->toStringShort());
+        return true;
+    } else {
+        cout << "Movie was not borrowed." << endl;
     }
-    return success;
+    return false;
 }

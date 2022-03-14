@@ -7,7 +7,9 @@ class Classic : public Movie {
 public:
     Classic(char type, string title, string director, string majorActor,
             int releaseMonth, int releaseYear);
+    Classic* actorlessCopy() const;
     virtual string toString() const;
+    virtual string toStringShort() const;
 private:
     string majorActor;
     int releaseMonth;

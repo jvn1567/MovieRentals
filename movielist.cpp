@@ -16,7 +16,7 @@ void MovieList::deleteHelper(MovieNode*& node) {
     if (node != nullptr) {
         deleteHelper(node->left);
         deleteHelper(node->right);
-        //delete node->movie;
+        delete node->movie;
         delete node;
     }
 }
@@ -38,19 +38,13 @@ void MovieList::insertHelper(MovieNode*& node, Movie* movie, int count) {
 }
 
 void MovieList::insert(Movie* movie, int count) {
-    try {
-        if (movie == nullptr) {
-            throw invalid_argument("INVALID MOVIE");
-        } else if (count <= 0) {
-            throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
-        } else {
-            insertHelper(root, movie, count);
-        }
-    } 
-    catch (invalid_argument& s) {
-        cout << s.what() << endl;
+    if (movie == nullptr) {
+        throw invalid_argument("Invalid movie - insert");
+    } else if (count <= 0) {
+        throw invalid_argument("Invalid count - insert");
+    } else {
+        insertHelper(root, movie, count);
     }
-
 }
 
 bool MovieList::removeHelper(MovieNode*& node, Movie* movie, int count) {
@@ -67,24 +61,18 @@ bool MovieList::removeHelper(MovieNode*& node, Movie* movie, int count) {
 }
 
 bool MovieList::remove(Movie* movie, int count) {
-    try {
-        if (movie == nullptr) {
-            throw invalid_argument("INVALID MOVIE");
-        } else if (count <= 0) {
-            throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
-        } else {
-            return removeHelper(root, movie, count);
-        }
-    } 
-    catch (invalid_argument& s) {
-        cout << s.what() << endl;
-        return false;
+    if (movie == nullptr) {
+        throw invalid_argument("Invalid movie - remove");
+    } else if (count <= 0) {
+        throw invalid_argument("Invalid count - remove");
+    } else {
+        return removeHelper(root, movie, count);
     }
 }
 
 int MovieList::count(Movie* movie) const {
     if (movie == nullptr) {
-        throw invalid_argument("INVALID MOVIE");
+        throw invalid_argument("Invalid movie - count");
     }
     MovieNode* curr = root;
     while (curr != nullptr) {
@@ -99,6 +87,22 @@ int MovieList::count(Movie* movie) const {
     return 0;
 }
 
+Movie* MovieList::findMovieHelper(MovieNode* node, Movie* movie) const {
+    if (node == nullptr) {
+        return nullptr;
+    } else if (movie == node->movie) {
+        return node->movie;
+    } else if (movie < node->movie) {
+        return findMovieHelper(node->left, movie);
+    } else {
+        return findMovieHelper(node->right, movie);
+    }
+}
+
+Movie* MovieList::findMovie(Movie* movie) const {
+    return findMovieHelper(root, movie);
+}
+
 void MovieList::viewInventoryHelper(MovieNode* curr) const {
     if (curr != nullptr) {
         viewInventoryHelper(curr->left);
@@ -111,45 +115,4 @@ void MovieList::viewInventoryHelper(MovieNode* curr) const {
 void MovieList::viewInventory() const {
     cout << "Current store inventory:" << endl;
     viewInventoryHelper(root);
-}
-
-Movie* MovieList::findComedy(string title, int year) {
-    return nullptr;
-}
-
-Movie* MovieList::findDrama(string director, string title) {
-    return nullptr;
-}
-
-Movie* MovieList::findClassic(int month, int year, string actor) {
-    return nullptr;
-}
-
-Movie* MovieList::findMovie(char type, istringstream& input) {
-    Movie* movie = nullptr;
-    string title, director, actor, monthRaw, yearRaw, firstActor, lastActor;
-    int month, year;
-    switch (type) {
-        case 'F': // comedy
-            getline(input, title, ',');
-            input >> year;
-            cout << "findComedy: " << type << " : " << title << " : " << year << endl;
-            movie = findComedy(title, year);
-            break;
-        case 'D': // drama
-            getline(input, director, ',');
-            getline(input, title, ',');
-            title = title.substr(1);
-            cout << "findDrama: " << type << " : " << title << " : " << director << endl;
-            movie = findDrama(director, title);
-            break;
-        case 'C': // classic
-            input >> month;
-            input >> year;
-            getline(input, actor);
-            cout << "findClassic: " << type << " : " << actor << " : " << month << " : " << year << endl;
-            movie = findClassic(month, year, actor);
-            break;
-    }
-    return movie;
 }

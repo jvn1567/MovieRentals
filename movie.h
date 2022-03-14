@@ -8,6 +8,7 @@ using namespace std;
 class Movie {
 public:
     Movie(char type, string title, string director, int releaseYear);
+    virtual ~Movie();
     char getType() const;
     string getTitle() const;
     string getDirector() const;
@@ -15,6 +16,7 @@ public:
     bool operator<(const Movie& other) const;
     bool operator==(const Movie& other) const;
     virtual string toString() const;
+    virtual string toStringShort() const = 0;
 protected:
     char type;
     string title;

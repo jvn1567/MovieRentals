@@ -9,9 +9,8 @@ bool ViewHistory::doTransaction() const {
     if (customer == nullptr) {
         return false;
     } else {
-        string history = customer->getHistory();
         cout << "Customer transaction history:" << endl;
-        cout <<  history << endl;
+        cout <<  customer->getHistory() << endl;
         return true;
     }
 }
