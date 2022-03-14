@@ -1,5 +1,9 @@
-// TODO: real header
-// Open-hashed list of customers
+/**
+ * @file customerlist.h
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class represents a list of customers, stored in a hash table.
+ * @date 2022-03-14
+ */
 
 #ifndef _CUSTOMERLIST_H
 #define _CUSTOMERLIST_H
@@ -8,21 +12,20 @@
 
 class CustomerList {
 public:
+
     // Constructor / Destructor
     CustomerList();
     ~CustomerList();
 
     // Accessors
     Customer* get(int ID);
-    void printAll();
 
     // Add
     void add(Customer* customer);
-    
 
 private:
 
-    // node for open hashing
+    // Node for open hashing
     typedef struct CustomerNode {
         Customer* customer;
         CustomerNode* next;
@@ -45,6 +48,7 @@ private:
     // Helpers
     void newList();
     void clearList(CustomerNode** list);
+
 };
 
 #endif

@@ -1,5 +1,9 @@
-// TODO: real header
-// A map of movies and their counts implemented as a BST
+/**
+ * @file movielist.h
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class represents a list of movies, stored in a BST.
+ * @date 2022-03-14
+ */
 
 #ifndef _MOVIELIST_H
 #define _MOVIELIST_H    

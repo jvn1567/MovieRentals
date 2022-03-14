@@ -1,5 +1,17 @@
+/**
+ * @file customerlist.cpp
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class represents a list of customers, stored in a hash table.
+ * @date 2022-03-14
+ */
+
 #include "customerlist.h"
 
+/**------------------------------------------------------------------
+ * New List
+ * 
+ * Initializes the hash array with nullptr default values.
+ ------------------------------------------------------------------*/
 void CustomerList::newList() {
     customers = new CustomerNode*[capacity];
     for (int i = 0; i < capacity; i++) {
@@ -7,12 +19,22 @@ void CustomerList::newList() {
     }
 }
 
+/**------------------------------------------------------------------
+ * Constructor
+ * 
+ * Creates an empty list with an intial prime-number sized array.
+ ------------------------------------------------------------------*/
 CustomerList::CustomerList() {
     size = 0;
     capacity = INITIAL_SIZE;
     newList();
 }
 
+/**------------------------------------------------------------------
+ * Clear List
+ * 
+ * Clears all heap-allocated memory in the passed in array of nodes.
+ ------------------------------------------------------------------*/
 void CustomerList::clearList(CustomerNode** list) {
     for (int i = 0; i < capacity; i++) {
         while (list[i] != nullptr) {
@@ -25,14 +47,29 @@ void CustomerList::clearList(CustomerNode** list) {
     delete list;
 }
 
+/**------------------------------------------------------------------
+ * Destructor
+ * 
+ * Clears heap-allocated memory.
+ ------------------------------------------------------------------*/
 CustomerList::~CustomerList() {
     clearList(customers);
 }
 
+/**------------------------------------------------------------------
+ * Hash
+ * 
+ * Returns a hash value generated from passed-in customer ID number.
+ ------------------------------------------------------------------*/
 int CustomerList::hash(int ID) const {
     return ID % capacity;
 }
 
+/**------------------------------------------------------------------
+ * Next Prime
+ * 
+ * Finds a prime number greater or equal to the specified value.
+ ------------------------------------------------------------------*/
 // must be positive integer
 int CustomerList::nextPrime(int min) const {
     // ensure odd
@@ -40,7 +77,7 @@ int CustomerList::nextPrime(int min) const {
         return nextPrime(min + 1);
     }
     // check for any factors, or check next odd
-    for (int i = 3; i * i <= min; i++) {
+    for (int i = 3; i * i <= min; i += 2) {
         if (min % i == 0) {
             return nextPrime(min + 2);
         }
@@ -48,6 +85,11 @@ int CustomerList::nextPrime(int min) const {
     return min;
 }
 
+/**------------------------------------------------------------------
+ * Rehash
+ * 
+ * Expands the array to at least double its size and rehashes items.
+ ------------------------------------------------------------------*/
 void CustomerList::rehash() {
     int oldCapacity = capacity;
     capacity = nextPrime(capacity * 2 + 1);
@@ -63,6 +105,12 @@ void CustomerList::rehash() {
     clearList(oldList);
 }
 
+/**------------------------------------------------------------------
+ * Get
+ * 
+ * Takes an integer ID number and returns the corresponding Customer
+ * pointer, or nullptr if the corresponding customer does not exist.
+ ------------------------------------------------------------------*/
 Customer* CustomerList::get(int ID) {
     int index = hash(ID);
     CustomerNode* curr = customers[index];
@@ -75,17 +123,12 @@ Customer* CustomerList::get(int ID) {
     return nullptr;
 }
 
-void CustomerList::printAll() {
-    for(int i = 0; i < capacity; i++) {
-        CustomerNode* curr = customers[i];
-        while(curr != nullptr) {
-            int custId = curr->customer->getID();
-            cout << custId << endl;
-            curr = curr->next;
-        }
-    }
-}
-
+/**------------------------------------------------------------------
+ * Add
+ * 
+ * Adds the Customer pointer to the CustomerList. If the load factor
+ * is reached, the array is expanded and rehashed.
+ ------------------------------------------------------------------*/
 void CustomerList::add(Customer* customer) {
     if (customer == nullptr) {
         throw invalid_argument("INVALID CUSTOMER");
