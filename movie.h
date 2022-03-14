@@ -14,6 +14,7 @@ public:
     int getReleaseYear() const;
     bool operator<(const Movie& other) const;
     bool operator==(const Movie& other) const;
+    virtual string toString() const;
 protected:
     char type;
     string title;

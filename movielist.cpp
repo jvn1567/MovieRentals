@@ -86,20 +86,16 @@ int MovieList::count(Movie* movie) const {
     return 0;
 }
 
-void MovieList::viewInventoryHelper(MovieNode* curr) {
+void MovieList::viewInventoryHelper(MovieNode* curr) const {
     if (curr != nullptr) {
-        int count = curr->count;
-        string title = curr->movie->getTitle();
-        string director = curr->movie->getDirector();
-        int year = curr->movie->getReleaseYear();
-        char type = curr->movie->getType();
-        cout << type << ", " << count << ", " << director << ", " << title << ", " << year;
         viewInventoryHelper(curr->left);
+        cout << curr->movie->getType() << ", " << curr->count;
+        cout << ", " << curr->movie->toString() << endl;
         viewInventoryHelper(curr->right);
     }
 }
 
-void MovieList::viewInventory() {
+void MovieList::viewInventory() const {
     cout << "Current store inventory:" << endl;
     viewInventoryHelper(root);
 }

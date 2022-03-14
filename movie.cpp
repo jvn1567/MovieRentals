@@ -35,3 +35,7 @@ bool Movie::operator==(const Movie& other) const {
         return this->equalTo(other);
     }
 }
+
+string Movie::toString() const {
+    return director + ", " + title + ", " + to_string(releaseYear);
+}
