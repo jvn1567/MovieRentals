@@ -1,26 +1,30 @@
 #include "movieFactory.h"
 
 Movie* MovieFactory::makeMovie(char type, istringstream& input) {
-    string title, director, yearRaw;
+    string title, director, yearRaw, discard;
+    string actor, actorFirst, actorLast, monthRaw;
     int year, month;
     Movie* movie = nullptr;
     // assuming no misformated lines, regarless of valid type
     getline(input, director, ',');
     getline(input, title, ',');
+    title = title.substr(1);
     // create object based on format-specific type
     switch (type) {
         case 'F': // comedy
             getline(input, yearRaw);
-            year = stoi(yearRaw);
+            year = stoi(yearRaw.substr(1));
+            //cout << type << " : " << title << " : " << director << " : " << year << endl;
             movie = new Comedy(type, title, director, year);
             break;
         case 'D': // drama
             getline(input, yearRaw);
-            year = stoi(yearRaw);
+            year = stoi(yearRaw.substr(1));
+            //cout << type << " : " << title << " : " << director << " : " << year << endl;
             movie = new Drama(type, title, director, year);
             break;
         case 'C': // classic
-            string actor, actorFirst, actorLast, monthRaw;
+            getline(input, discard, ' ');
             getline(input, actorFirst, ' ');
             getline(input, actorLast, ' ');
             getline(input, monthRaw, ' ');
@@ -28,7 +32,10 @@ Movie* MovieFactory::makeMovie(char type, istringstream& input) {
             year = stoi(yearRaw);
             month = stoi(monthRaw);
             actor = actorFirst + " " + actorLast;
+            //cout << type << " : " << title << " : " << director << " : " << actor << " : " << month << " : " << year << endl;
             movie = new Classic(type, title, director, actor, month, year);
+            break;
+        default:
             break;
     }
     return movie;
@@ -43,7 +50,7 @@ Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
         case 'F': // comedy
             getline(input, title, ',');
             getline(input, yearRaw);
-            year = stoi(yearRaw);
+            year = stoi(yearRaw.substr(1));
             movie = new Comedy(type, title, "", year);
             break;
         case 'D': // drama

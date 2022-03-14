@@ -6,6 +6,8 @@
 
 #include "movie.h"
 
+using namespace std;
+
 class MovieList {
 public:
 

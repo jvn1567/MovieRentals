@@ -37,13 +37,19 @@ void MovieList::insertHelper(MovieNode*& node, Movie* movie, int count) {
 }
 
 void MovieList::insert(Movie* movie, int count) {
-    if (movie == nullptr) {
-        throw invalid_argument("INVALID MOVIE");
-    } else if (count <= 0) {
-        throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
-    } else {
-        insertHelper(root, movie, count);
+    try {
+        if (movie == nullptr) {
+            throw invalid_argument("INVALID MOVIE");
+        } else if (count <= 0) {
+            throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
+        } else {
+            insertHelper(root, movie, count);
+        }
+    } 
+    catch (invalid_argument& s) {
+        cout << s.what() << endl;
     }
+
 }
 
 bool MovieList::removeHelper(MovieNode*& node, Movie* movie, int count) {
@@ -88,13 +94,13 @@ int MovieList::count(Movie* movie) const {
 
 void MovieList::viewInventoryHelper(MovieNode* curr) {
     if (curr != nullptr) {
+        viewInventoryHelper(curr->left);
         int count = curr->count;
         string title = curr->movie->getTitle();
         string director = curr->movie->getDirector();
         int year = curr->movie->getReleaseYear();
         char type = curr->movie->getType();
-        cout << type << ", " << count << ", " << director << ", " << title << ", " << year;
-        viewInventoryHelper(curr->left);
+        cout << type << ", " << count << ", " << director << ", " << title << ", " << year << endl;
         viewInventoryHelper(curr->right);
     }
 }
