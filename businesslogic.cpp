@@ -1,6 +1,6 @@
 #include "businesslogic.h"
-//#include "transaction.h"
-//#include "transactionfactory.h"
+#include "transaction.h"
+#include "transactionfactory.h"
 #include "movieFactory.h"
 #include "customerlist.h"
 #include "customer.h"
@@ -41,7 +41,7 @@ bool BusinessLogic::buildMovies(string filename) {
         }
         getline(infile, line);
     }
-    store->viewInventory();
+    //store->viewInventory();     //DELETE BEFORE RELEASE
     return true;
 }
 
@@ -64,23 +64,23 @@ bool BusinessLogic::buildCustomers(string filename) {
         }
         getline(infile, line);
     }
-    customers->printAll();
+    //customers->printAll();     //DELETE BEFORE RELEASE
     return true;
 }
 
-/*
+
 bool BusinessLogic::processTransactions(string filename) {
+    //cout << "Begin processTransactions" << endl;      //DELETE BEFORE RELEASE
     ifstream infile(filename);
     if (!infile.good()) {
 		cout << "File could not be opened." << endl;
 		return false;
 	}
-    
+    string line = "";
+    getline(infile, line);
+    //cout << "BL:pT: line: " << line << endl;      //DELETE BEFORE RELEASE
     while(!infile.eof()) {
         TransactionFactory tf;
-        string line = "";
-        getline(infile, line);
-        
         if (!line.empty()) { //read through each line
             Transaction* t = tf.createTransaction(store, customers, line);
             if (t != nullptr) {
@@ -91,7 +91,8 @@ bool BusinessLogic::processTransactions(string filename) {
                 //delete t;
             }
         }
+        getline(infile, line);
+        cout << "BL:pT: line2: " << line << endl;      //DELETE BEFORE RELEASE
     }
     return true;
 }
-*/

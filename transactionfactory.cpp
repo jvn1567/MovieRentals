@@ -1,6 +1,7 @@
 #include "transaction.h"
 #include "transactionfactory.h"
 #include "moviefactory.h"
+#include "movielist.h"
 #include "borrow.h"
 #include "return.h"
 #include "viewhistory.h"
@@ -28,7 +29,6 @@ Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerLis
     string command, movieType, mediaType;
     int customerId;
     istringstream iss(line);
-    
     iss >> command; 
     char c = command[0];
     switch(c) {
@@ -37,7 +37,7 @@ Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerLis
             iss >> mediaType;
             iss >> movieType;
             customer = customers->get(customerId);
-            movie = MovieFactory::makePartialMovie(c, iss);
+            movie = store->findMovie(mediaType[0], iss);
             if (customer != nullptr) {
                 t = new Borrow(store, customer, movie);
             }
@@ -47,7 +47,7 @@ Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerLis
             iss >> mediaType;
             iss >> movieType;
             customer = customers->get(customerId);
-            movie = MovieFactory::makePartialMovie(c, iss);
+            movie = store->findMovie(mediaType[0], iss);
             if (customer != nullptr) {
                 t = new Return(store, customer, movie);
             }

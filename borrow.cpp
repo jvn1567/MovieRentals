@@ -20,7 +20,9 @@ bool Borrow::doTransaction() const {
         cout << "Invalid customer." << endl;
         return false;
     }
-
+    if (movie == nullptr) {
+        cout << "Borrow: movie is nullptr" << endl;
+    }
     success = store->remove(movie);
     if (!success) {
         cout << "Movie is out of stock." << endl;

@@ -5,6 +5,7 @@
 #define _MOVIELIST_H    
 
 #include "movie.h"
+#include <sstream>
 
 using namespace std;
 
@@ -21,6 +22,8 @@ public:
 
     // Accessors
     int count(Movie* movie) const;
+    Movie* findMovie(char type, istringstream& input);
+
     void viewInventory();
 
 private:
@@ -35,6 +38,10 @@ private:
         MovieNode(Movie* movie, int count, MovieNode* left = nullptr,
                 MovieNode* right = nullptr);
     };
+
+    Movie* findComedy(string title, int year);
+    Movie* findDrama(string director, string title);
+    Movie* findClassic(int month, int year, string actor);
 
     //Helpers
     void insertHelper(MovieNode*& node, Movie* movie, int count);

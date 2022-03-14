@@ -1,5 +1,6 @@
 #include "movielist.h"
 #include <exception>
+#include <sstream>
 
 MovieList::MovieNode::MovieNode(Movie* movie, int count,
         MovieNode* left, MovieNode* right) :
@@ -66,12 +67,18 @@ bool MovieList::removeHelper(MovieNode*& node, Movie* movie, int count) {
 }
 
 bool MovieList::remove(Movie* movie, int count) {
-    if (movie == nullptr) {
-        throw invalid_argument("INVALID MOVIE");
-    } else if (count <= 0) {
-        throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
-    } else {
-        return removeHelper(root, movie, count);
+    try {
+        if (movie == nullptr) {
+            throw invalid_argument("INVALID MOVIE");
+        } else if (count <= 0) {
+            throw invalid_argument("COUNT MUST BE A POSITIVE INTEGER");
+        } else {
+            return removeHelper(root, movie, count);
+        }
+    } 
+    catch (invalid_argument& s) {
+        cout << s.what() << endl;
+        return false;
     }
 }
 
@@ -108,4 +115,45 @@ void MovieList::viewInventoryHelper(MovieNode* curr) {
 void MovieList::viewInventory() {
     cout << "Current store inventory:" << endl;
     viewInventoryHelper(root);
+}
+
+Movie* MovieList::findComedy(string title, int year) {
+    return nullptr;
+}
+
+Movie* MovieList::findDrama(string director, string title) {
+    return nullptr;
+}
+
+Movie* MovieList::findClassic(int month, int year, string actor) {
+    return nullptr;
+}
+
+Movie* MovieList::findMovie(char type, istringstream& input) {
+    Movie* movie = nullptr;
+    string title, director, actor, monthRaw, yearRaw, firstActor, lastActor;
+    int month, year;
+    switch (type) {
+        case 'F': // comedy
+            getline(input, title, ',');
+            input >> year;
+            cout << "findComedy: " << type << " : " << title << " : " << year << endl;
+            movie = findComedy(title, year);
+            break;
+        case 'D': // drama
+            getline(input, director, ',');
+            getline(input, title, ',');
+            title = title.substr(1);
+            cout << "findDrama: " << type << " : " << title << " : " << director << endl;
+            movie = findDrama(director, title);
+            break;
+        case 'C': // classic
+            input >> month;
+            input >> year;
+            getline(input, actor);
+            cout << "findClassic: " << type << " : " << actor << " : " << month << " : " << year << endl;
+            movie = findClassic(month, year, actor);
+            break;
+    }
+    return movie;
 }

@@ -44,19 +44,19 @@ Movie* MovieFactory::makeMovie(char type, istringstream& input) {
 // empty strings for attributes that don't get compared or sorted
 Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
     Movie* movie = nullptr;
-    string title, director, actor, monthRaw, yearRaw;
+    string title, director, actor, monthRaw, yearRaw, firstActor, lastActor;
     int month, year;
     switch (type) {
         case 'F': // comedy
-            getline(input, title, ',');
-            getline(input, yearRaw);
-            year = stoi(yearRaw.substr(1));
+            input >> month >> year >> firstActor >> lastActor;
+            cout << "makePartialMovie: " << type << " : " << title << " : " << year << endl;
             movie = new Comedy(type, title, "", year);
             break;
         case 'D': // drama
             getline(input, director, ',');
             getline(input, title, ',');
             title = title.substr(1);
+            cout << "makePartialMovie: " << type << " : " << title << " : " << director << endl;
             movie = new Drama(type, title, director, 0);
             break;
         case 'C': // classic
@@ -65,6 +65,7 @@ Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
             getline(input, actor);
             month = stoi(monthRaw);
             year = stoi(yearRaw);
+            cout << "makePartialMovie: " << type << " : " << actor << " : " << month << " : " << year << endl;
             movie = new Classic(type, "", "", actor, month, year);
             break;
     }
