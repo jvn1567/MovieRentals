@@ -1,17 +1,41 @@
+/**
+ * @file borrow.cpp
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class represents a customer borrowing a movie from the store.
+ * @date 2022-03-14
+ */
+
 #include "borrow.h"
 #include "businesslogic.h"
 #include "movielist.h"
 #include "classic.h"
 
+/**------------------------------------------------------------------
+ * Constructor
+ * 
+ * Creates a Borrow transaction object, with default values of
+ * nullptr for each pointer.
+ ------------------------------------------------------------------*/
 Borrow::Borrow(MovieList* store, Customer* customer, Movie* movie) {
     this->store = store,
     this->customer = customer;
     this->movie = movie;
 }
 
+/**------------------------------------------------------------------
+ * Destructor
+ * 
+ * Clears heap-allocated memory.
+ ------------------------------------------------------------------*/
 Borrow::~Borrow() {}
 
-// store assumed to always be valid
+/**------------------------------------------------------------------
+ * Do Transaction
+ * 
+ * Removes a movie from the store and adds it to the customer's
+ * inventory. The store is assumed to be valid.
+ * Returns true if the transaction was successful.
+ ------------------------------------------------------------------*/
 bool Borrow::doTransaction() const {
     bool success = false;
     bool inStock = false;
