@@ -10,7 +10,8 @@ using namespace std;
 class Transaction {
 public:
     Transaction();
-    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers) const = 0;
+    //virtual ~Transaction() = 0;
+    virtual bool doTransaction() const = 0;
     // sets the store inventory to add/remove from
     void setInventory(map<Movie*, int>* newStore);
 };

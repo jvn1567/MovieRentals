@@ -3,6 +3,9 @@
 
 #include <string.h>
 #include <sstream>
+#include "customerlist.h"
+#include "movielist.h"
+#include "transaction.h"
 
 using namespace std;
 
@@ -10,9 +13,8 @@ using namespace std;
 class TransactionFactory {
 public:
     TransactionFactory();
-    Transaction* createTransaction(map<Movie*, int>* store, string line);
+    Transaction* createTransaction(MovieList* store, CustomerList* customers, string line);
 private:
-    Movie* getMovie(map<Movie*, int>* store, string movieType, istringstream& iss);
+    Movie* getMovie(MovieList* store, string movieType, istringstream& iss);
 };
-
 #endif

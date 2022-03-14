@@ -11,6 +11,7 @@ TransactionFactory::TransactionFactory() {
 
 }
 
+/*
 string removeEndingComma(string word) {
     if (word[word.length()] == ',') {
         return word.substr(0, word.length() - 1);
@@ -18,81 +19,46 @@ string removeEndingComma(string word) {
         return word;
     }
 }
+*/
 
-Movie* TransactionFactory::getMovie(map<Movie*, int>* store, string movieType, istringstream& iss) {
-    Movie* movie = nullptr;
-    if (movieType == "C") {
-        int month, year;
-        string director;
-
-        iss >> month;
-        iss >> year;
-        getline(iss, director);
-
-        for (auto& kv: *store) {
-            Movie* tempMovie = kv.first;
-            int count = kv.second;
-            if (tempMovie->getType() == movieType && tempMovie->getReleaseYear() == year && tempMovie->getDirector() == director) {
-                movie = tempMovie;
-            }
-        }
-    } else if (movieType == "D") {
-        string director, title;
-        getline(iss, director, ',');
-        getline(iss, title, ',');
-        for (auto& kv: *store) {
-            Movie* tempMovie = kv.first;
-            int count = kv.second;
-            if (tempMovie->getType() == movieType && tempMovie->getDirector() == director && tempMovie->getTitle() == title) {
-                movie = tempMovie;
-            }
-        }
-    } else if (movieType == "F") {
-        string title;
-        int year;
-        getline(iss, title, ',');
-        iss >> year;
-        for (auto& kv: *store) {
-            Movie* tempMovie = kv.first;
-            int count = kv.second;
-            if (tempMovie->getType() == movieType && tempMovie->getTitle() == title && tempMovie->getReleaseYear() == year) {
-                movie = tempMovie;
-            }
-        }
-    }
-    return movie;
-}
-
-Transaction* TransactionFactory::createTransaction(map<Movie*, int>* store, string line) {
-    string command, movieType, mediaType;
-    istringstream iss(line);
-    iss >> command;
-
+Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerList* customers, string line) {
     Transaction* t = nullptr;
-
-    char c = command[0];
+    Customer* customer = nullptr;
+    Movie* movie = nullptr;
+    string command, movieType, mediaType;
     int customerId;
+    istringstream iss(line);
+    
+    iss >> command; 
+    char c = command[0];
     switch(c) {
         case 'B' :
             iss >> customerId;
             iss >> mediaType;
             iss >> movieType;
-            Movie* movie = getMovie(store, movieType, iss); //retrive Movie
-            t = new Borrow(customerId, movie);
+            customer = customers->get(customerId);
+            movie = MovieFactory::makePartialMovie(c, iss);
+            if (customer != nullptr) {
+                t = new Borrow(store, customer, movie);
+            }
             break;
         case 'R' : 
             iss >> customerId;
             iss >> mediaType;
             iss >> movieType;
-            Movie* movie = getMovie(store, movieType, iss); //retrive Movie
-            t = new Return(movie);
+            customer = customers->get(customerId);
+            movie = MovieFactory::makePartialMovie(c, iss);
+            if (customer != nullptr) {
+                t = new Return(store, customer, movie);
+            }
             break;
         case 'I' :
-            t = new ViewInventory();
+            t = new ViewInventory(store);
             break;
         case 'H' :
             iss >> customerId;
-            t = new ViewHistory(customerId);
+            customer = customers->get(customerId);
+            t = new ViewHistory(customer);
             break;
         default:
             cout << "Invalid Command" << endl;

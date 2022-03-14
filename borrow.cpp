@@ -1,25 +1,31 @@
 #include "borrow.h"
 #include "businesslogic.h"
+#include "movielist.h"
 
-Borrow::Borrow(int customerId, Movie* movie) {
-  this->customerId = customerId;
-  this->movie = movie;
+Borrow::Borrow(MovieList* store, Customer* customer, Movie* movie) {
+    this->store = store,
+    this->customer = customer;
+    this->movie = movie;
 }
 
-CustomerNode* Borrow::findCustomer(CustomerNode** customers) {
-  for (int i = 0; i < 101; i++) {
-    CustomerNode* curr = customers[i];
-
-  }
+/*
+Borrow::~Borrow() {
+    //delete movie;
 }
+*/
 
-void Borrow::doTransaction(map<Movie*, int>* store, CustomerNode** customers) const {
-    if (movie == nullptr) {
-      cout << "Movie not found" << endl;
-    } else if ((*store)[movie] > 0) {
-        (*store)[movie] -= 1;
-
-    } else {
-      cout << "Movie is out of stock" << endl;
+bool Borrow::doTransaction() const {
+    bool success = false;
+    if (customer == nullptr) {
+        cout << "Invalid customer." << endl;
+        return false;
     }
+
+    success = store->remove(movie);
+    if (!success) {
+        cout << "Movie is out of stock." << endl;
+    } else {
+        customer->insert(movie);
+    }
+    return success;
 }

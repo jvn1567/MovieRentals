@@ -1,9 +1,15 @@
 #include "viewinventory.h"
 
-ViewInventory::ViewInventory(map<Movie*, int>* store) {
+ViewInventory::ViewInventory(MovieList* store) {
     this->store = store;
 }
 
-void ViewInventory::doTransaction(map<Movie*, int>* store, CustomerNode** customers = nullptr) const {
-    //
+bool ViewInventory::doTransaction() const {
+    if (store == nullptr) {
+        cout << "Store does not exist." << endl;
+        return false;
+    } else {
+        store->viewInventory();
+        return true;
+    }
 }

@@ -1,2 +1,6 @@
 /build/
 /.vscode/
+/CMakeLists.txt
+/data4commands.txt
+/data4customers.txt
+/data4movies.txt

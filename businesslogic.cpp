@@ -74,10 +74,13 @@ bool BusinessLogic::processTransactions(string filename) {
         getline(infile, line);
         
         if (!line.empty()) { //read through each line
-            Transaction* t = tf.createTransaction(store, line);
+            Transaction* t = tf.createTransaction(store, customers, line);
             if (t != nullptr) {
-                t->doTransaction(store, customers);
-                delete t;
+                bool success = t->doTransaction();
+                if (!success) {
+                    cout << "Transaction failed." << endl;
+                }
+                //delete t;
             }
         }
     }

@@ -9,10 +9,13 @@
 
 class Return: public Transaction {
 public:
-    Return(Movie* movie = nullptr);
+    Return(MovieList* store = nullptr, Customer* customer = nullptr, Movie* movie = nullptr);
+    //~Return();
     // Takes the movie from the customer's inventory and adds it back to the store.
-    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers) const;
+    virtual bool doTransaction() const;
 private:
+    MovieList* store;
+    Customer* customer;
     Movie* movie;
 };
 

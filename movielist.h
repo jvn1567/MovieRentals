@@ -19,6 +19,7 @@ public:
 
     // Accessors
     int count(Movie* movie) const;
+    void viewInventory();
 
 private:
 
@@ -37,6 +38,7 @@ private:
     void insertHelper(MovieNode*& node, Movie* movie, int count);
     bool removeHelper(MovieNode*& node, Movie* movie, int count);
     void deleteHelper(MovieNode*& node);
+    void viewInventoryHelper(MovieNode* curr);
 
     // Members
     MovieNode* root;

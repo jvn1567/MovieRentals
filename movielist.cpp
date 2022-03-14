@@ -15,7 +15,7 @@ void MovieList::deleteHelper(MovieNode*& node) {
     if (node != nullptr) {
         deleteHelper(node->left);
         deleteHelper(node->right);
-        delete node->movie;
+        //delete node->movie;
         delete node;
     }
 }
@@ -84,4 +84,22 @@ int MovieList::count(Movie* movie) const {
         }
     }
     return 0;
+}
+
+void MovieList::viewInventoryHelper(MovieNode* curr) {
+    if (curr != nullptr) {
+        int count = curr->count;
+        string title = curr->movie->getTitle();
+        string director = curr->movie->getDirector();
+        int year = curr->movie->getReleaseYear();
+        char type = curr->movie->getType();
+        cout << type << ", " << count << ", " << director << ", " << title << ", " << year;
+        viewInventoryHelper(curr->left);
+        viewInventoryHelper(curr->right);
+    }
+}
+
+void MovieList::viewInventory() {
+    cout << "Current store inventory:" << endl;
+    viewInventoryHelper(root);
 }

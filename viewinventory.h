@@ -6,9 +6,10 @@
 // A class representing a customer checking the store stock of movies.
 class ViewInventory : public Transaction {
 public:
-    ViewInventory(map<Movie*, int>* store = nullptr);
+    ViewInventory(MovieList* store = nullptr);
+    //virtual ~ViewInventory();
     // Prints the store's inventory to console.
-    virtual void doTransaction(map<Movie*, int>* store, CustomerNode** customers = nullptr) const;
+    virtual bool doTransaction() const;
 private:
-    map<Movie*, int>* store;
+    MovieList* store;
 };

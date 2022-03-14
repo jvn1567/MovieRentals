@@ -1,10 +1,15 @@
 #include "viewhistory.h"
 #include "businesslogic.h"
 
-ViewHistory::ViewHistory(int customerId) {
-    this->customerId = customerId;
+ViewHistory::ViewHistory(Customer* customer) {
+    this->customer = customer;
 }
 
-void ViewHistory::doTransaction(map<Movie*, int>* store = nullptr, CustomerNode** customers) const {
-    //
+bool ViewHistory::doTransaction() const {
+    if (customer == nullptr) {
+        return false;
+    } else {
+        customer->getHistory();
+        return true;
+    }
 }
