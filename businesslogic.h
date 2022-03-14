@@ -3,6 +3,9 @@
 
 #include "customerlist.h"
 #include "movie.h"
+#include "movielist.h"
+
+using namespace std;
 
 // A class representing a general transaction.
 class BusinessLogic {
@@ -14,7 +17,6 @@ public:
     bool processTransactions(string filename);
     
 private:
-
     MovieList* store;
     CustomerList* customers;
 };

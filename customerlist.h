@@ -14,18 +14,19 @@ public:
 
     // Accessors
     Customer* get(int ID);
+    void printAll();
 
     // Add
     void add(Customer* customer);
+    
 
 private:
 
     // node for open hashing
-    struct CustomerNode {
+    typedef struct CustomerNode {
         Customer* customer;
         CustomerNode* next;
-        CustomerNode(Customer* customer, CustomerNode* next = nullptr);
-    };
+    } CustomerNode;
 
     // Constants
     static const int INITIAL_SIZE  = 31;

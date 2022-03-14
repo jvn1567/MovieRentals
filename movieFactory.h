@@ -6,6 +6,8 @@
 #include "comedy.h"
 #include "drama.h"
 
+using namespace std;
+
 class MovieFactory {
 public:
     static Movie* makeMovie(char type, istringstream& input);

@@ -75,12 +75,28 @@ Customer* CustomerList::get(int ID) {
     return nullptr;
 }
 
+void CustomerList::printAll() {
+    for(int i = 0; i < capacity; i++) {
+        CustomerNode* curr = customers[i];
+        while(curr != nullptr) {
+            int custId = curr->customer->getID();
+            cout << custId << endl;
+            curr = curr->next;
+        }
+    }
+}
+
 void CustomerList::add(Customer* customer) {
-    if (customer == nullptr) {
-        throw invalid_argument("INVALID CUSTOMER");
+    try {
+        if (customer == nullptr) {
+            throw invalid_argument("INVALID CUSTOMER");
+        }
+    }
+    catch (invalid_argument& s) {
+        cout << s.what() << endl;
     }
     int index = hash(customer->getID());
-    customers[index] = new CustomerNode(customer, customers[index]);
+    customers[index] = new CustomerNode{customer, customers[index]};
     size++;
     if (size > LOAD_FACTOR * capacity) {
         rehash();
