@@ -1,3 +1,10 @@
+/**
+ * @file transactionfactory.cpp
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief Creates different kinds of transaction object based on the input.
+ * @date 2022-03-14
+ */
+
 #include "transaction.h"
 #include "transactionfactory.h"
 #include "moviefactory.h"
@@ -8,16 +15,15 @@
 #include "viewinventory.h"
 #include "businesslogic.h"
 
-/*
-string removeEndingComma(string word) {
-    if (word[word.length()] == ',') {
-        return word.substr(0, word.length() - 1);
-    } else {
-        return word;
-    }
-}
-*/
-
+/**------------------------------------------------------------------
+ * createTransaction
+ * 
+ * Processes the transaction command passed in the parameter, creates 
+ * and returns the transaction object.
+ * Parameter: store is the pointer to the store's MovieList. customers
+ * is pointer to the store's customer list. line is the transaction
+ * command being processed.
+ ------------------------------------------------------------------*/
 Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerList* customers, string line) {
     Transaction* t = nullptr;
     Customer* customer = nullptr;
