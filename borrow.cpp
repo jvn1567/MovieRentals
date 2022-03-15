@@ -1,7 +1,7 @@
 /**
  * @file borrow.cpp
  * @author Matthew Kim, John Nguyen CSS502 
- * @brief This class represents a customer borrowing a movie from the store.
+ * @brief Defines a customer borrowing a movie from the store.
  * @date 2022-03-14
  */
 
@@ -13,8 +13,10 @@
 /**------------------------------------------------------------------
  * Constructor
  * 
- * Creates a Borrow transaction object, with default values of
- * nullptr for each pointer.
+ * Constructor with with default values of nullptr for each parameter.
+ * Parameter: store is the pointer to the store's MovieList. customer
+ * is pointer to the Customer. movie is the pointer to the Movie being
+ * borrowed.
  ------------------------------------------------------------------*/
 Borrow::Borrow(MovieList* store, Customer* customer, Movie* movie) {
     this->store = store,
@@ -23,17 +25,10 @@ Borrow::Borrow(MovieList* store, Customer* customer, Movie* movie) {
 }
 
 /**------------------------------------------------------------------
- * Destructor
- * 
- * Clears heap-allocated memory.
- ------------------------------------------------------------------*/
-Borrow::~Borrow() {}
-
-/**------------------------------------------------------------------
  * Do Transaction
  * 
  * Removes a movie from the store and adds it to the customer's
- * inventory. The store is assumed to be valid.
+ * inventory.
  * Returns true if the transaction was successful.
  ------------------------------------------------------------------*/
 bool Borrow::doTransaction() const {
@@ -68,7 +63,6 @@ bool Borrow::doTransaction() const {
             }
         } else {
             cout << "Movie is out of stock." << endl;
-            cout << movie->toStringShort() << endl;    // DEBUG 
 	        delete movie;
         }
         if (temp != nullptr) {

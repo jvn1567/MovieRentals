@@ -23,6 +23,9 @@ void CustomerList::newList() {
  * Constructor
  * 
  * Creates an empty list with an intial prime-number sized array.
+ * Constructor that initializes a store's customer list.
+ * Postcondition: size is zero, capacity is set to INITIAL_SIZE, and
+ * CustomerNode* array is all filled with nullptr.
  ------------------------------------------------------------------*/
 CustomerList::CustomerList() {
     size = 0;
@@ -31,9 +34,10 @@ CustomerList::CustomerList() {
 }
 
 /**------------------------------------------------------------------
- * Clear List
+ * clearList
  * 
- * Clears all heap-allocated memory in the passed in array of nodes.
+ * Deletes all heap allocated memory in a CustomerNode array.
+ * Parameter: list is the pointer to the CustomerNode array.
  ------------------------------------------------------------------*/
 void CustomerList::clearList(CustomerNode** list) {
     for (int i = 0; i < capacity; i++) {
@@ -57,20 +61,22 @@ CustomerList::~CustomerList() {
 }
 
 /**------------------------------------------------------------------
- * Hash
+ * hash
  * 
- * Returns a hash value generated from passed-in customer ID number.
+ * Calculates and returns the hash index value based on the input 
+ * customer ID value that is passed as a parameter. 
  ------------------------------------------------------------------*/
 int CustomerList::hash(int ID) const {
     return ID % capacity;
 }
 
 /**------------------------------------------------------------------
- * Next Prime
+ * nextPrime
  * 
- * Finds a prime number greater or equal to the specified value.
+ * Calculates and returns the next largest prime number from the int
+ * value passed in as a parameter. * 
+ * Precondition: min is a positive integer.
  ------------------------------------------------------------------*/
-// must be positive integer
 int CustomerList::nextPrime(int min) const {
     // ensure odd
     if (min % 2 == 0) {
@@ -106,10 +112,10 @@ void CustomerList::rehash() {
 }
 
 /**------------------------------------------------------------------
- * Get
+ * get
  * 
- * Takes an integer ID number and returns the corresponding Customer
- * pointer, or nullptr if the corresponding customer does not exist.
+ * Finds the pointer to the Customer based on the customer ID passed
+ * in as a parameter. Returns nullptr if the customer ID is not found.
  ------------------------------------------------------------------*/
 Customer* CustomerList::get(int ID) {
     int index = hash(ID);
@@ -124,10 +130,26 @@ Customer* CustomerList::get(int ID) {
 }
 
 /**------------------------------------------------------------------
- * Add
+ * printAll
  * 
- * Adds the Customer pointer to the CustomerList. If the load factor
- * is reached, the array is expanded and rehashed.
+ * Prints a list of all the customer ID's in the store's record.
+ ------------------------------------------------------------------*/
+void CustomerList::printAll() {
+    for(int i = 0; i < capacity; i++) {
+        CustomerNode* curr = customers[i];
+        while(curr != nullptr) {
+            int custId = curr->customer->getID();
+            cout << custId << endl;
+            curr = curr->next;
+        }
+    }
+}
+
+/**------------------------------------------------------------------
+ * add
+ * 
+ * Adds a Customer to the store's customer list. If customer count
+ * exceeds load value, expands the array and rehashes.
  ------------------------------------------------------------------*/
 void CustomerList::add(Customer* customer) {
     if (customer == nullptr) {

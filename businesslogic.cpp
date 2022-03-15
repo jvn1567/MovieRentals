@@ -1,3 +1,10 @@
+/**
+ * @file businesslogic.cpp
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief Defines the logic to build the movie rental store and process commands
+ * @date 2022-03-14
+ */
+
 #include "businesslogic.h"
 #include "transaction.h"
 #include "transactionfactory.h"
@@ -9,16 +16,34 @@
 
 using namespace std;
 
+/**------------------------------------------------------------------
+ * Constructor
+ * 
+ * Constructor that creates a new CustomerList and MovieList.
+ ------------------------------------------------------------------*/
 BusinessLogic::BusinessLogic() {
     customers = new CustomerList;
     store = new MovieList;
 }
 
+/**------------------------------------------------------------------
+ * Destructor
+ * 
+ * Clears heap-allocated memory.
+ ------------------------------------------------------------------*/
 BusinessLogic::~BusinessLogic() {
     delete store;
     delete customers;
 }
 
+/**------------------------------------------------------------------
+ * buildMovies
+ * 
+ * Builds the store's inventory of movies from an input file.
+ * Parameter: filename is the file name of the input file.
+ * Return: True if the store's inventory was successfully built from
+ * the input file.
+ ------------------------------------------------------------------*/
 bool BusinessLogic::buildMovies(string filename) {
     ifstream infile(filename);
     if (!infile.good()) {
@@ -47,6 +72,14 @@ bool BusinessLogic::buildMovies(string filename) {
     return true;
 }
 
+/**------------------------------------------------------------------
+ * buildCustomers
+ * 
+ * Builds the store's customer list from an input file.
+ * Parameter: filename is the file name of the input file.
+ * Return: True if the store's customer list was successfully built
+ * from the input file.
+ ------------------------------------------------------------------*/
 bool BusinessLogic::buildCustomers(string filename) {
     ifstream infile(filename);
     if (!infile.good()) {
@@ -69,7 +102,14 @@ bool BusinessLogic::buildCustomers(string filename) {
     return true;
 }
 
-
+/**------------------------------------------------------------------
+ * processTransactions
+ * 
+ * Performs movie rental transations based on commands from an input
+ * file.
+ * Parameter: filename is the file name of the input file.
+ * Return: True if all the transactions were successfully processed.
+ ------------------------------------------------------------------*/
 bool BusinessLogic::processTransactions(string filename) {
     ifstream infile(filename);
     if (!infile.good()) {
@@ -79,7 +119,6 @@ bool BusinessLogic::processTransactions(string filename) {
     string line = "";
     getline(infile, line);
     while(!infile.eof()) {
-        cout << line << endl; // DEBUG REMOVE BEFORE FINAL
         TransactionFactory tf;
         if (!line.empty()) { //read through each line
             Transaction* t = tf.createTransaction(store, customers, line);
@@ -90,7 +129,7 @@ bool BusinessLogic::processTransactions(string filename) {
                 }
                 delete t;
             } else {
-                cout << "Invalid Command" << endl << endl;
+                cout << "Invalid Command: " << line[0] << endl << endl;
             }
         }
         getline(infile, line);
