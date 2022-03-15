@@ -1,5 +1,20 @@
+/**
+ * @file moviefactory.cpp
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class generates movies of the correct subclass.
+ * @date 2022-03-14
+ */
+
 #include "moviefactory.h"
 
+/**------------------------------------------------------------------
+ * Make Movie
+ * 
+ * Creates a movie object of the correct subclass by taking the type
+ * as a char and a reference to an input string stream containing
+ * the rest of the movie information. Format of the string in the
+ * stream is assumed to be valid.
+ ------------------------------------------------------------------*/
 Movie* MovieFactory::makeMovie(char type, istringstream& input) {
     string title, director, yearRaw, discard;
     string actor, actorFirst, actorLast, monthRaw;
@@ -38,7 +53,15 @@ Movie* MovieFactory::makeMovie(char type, istringstream& input) {
     return movie;
 }
 
-// empty strings for attributes that don't get compared or sorted
+/**------------------------------------------------------------------
+ * Make Partial Movie
+ * 
+ * Creates movie objects of the subclass corresponding to the passed
+ * in type, by reading from the input string stream reference
+ * provided. Format being read in is assumed to be correct. Objects
+ * created by this method only contain sorting attributes, with
+ * empty strings or 0 as defaults for unprovided attributes.
+ ------------------------------------------------------------------*/
 Movie* MovieFactory::makePartialMovie(char type, istringstream& input) {
     Movie* movie = nullptr;
     string title, director, actor, monthRaw, yearRaw, firstActor, lastActor;

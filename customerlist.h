@@ -1,7 +1,7 @@
 /**
  * @file customerlist.h
  * @author Matthew Kim, John Nguyen CSS502 
- * @brief Defines the data structure that holds a store's list of customers.
+ * @brief This class represents a list of customers, stored in a hash table.
  * @date 2022-03-14
  */
 
@@ -12,6 +12,7 @@
 
 class CustomerList {
 public:
+
     // Constructor / Destructor
     /**------------------------------------------------------------------
      * Constructor
@@ -51,11 +52,10 @@ public:
      * Adds a Customer to the store's customer list.
      ------------------------------------------------------------------*/
     void add(Customer* customer);
-    
 
 private:
 
-    // node for open hashing
+    // Node for open hashing
     typedef struct CustomerNode {
         Customer* customer;
         CustomerNode* next;
@@ -111,6 +111,7 @@ private:
      * Parameter: list is the pointer to the CustomerNode array.
      ------------------------------------------------------------------*/
     void clearList(CustomerNode** list);
+
 };
 
 #endif

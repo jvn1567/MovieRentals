@@ -1,17 +1,16 @@
 /**
  * @file customerlist.cpp
  * @author Matthew Kim, John Nguyen CSS502 
- * @brief Defines the data structure that holds a store's list of customers.
+ * @brief This class represents a list of customers, stored in a hash table.
  * @date 2022-03-14
  */
 
 #include "customerlist.h"
 
 /**------------------------------------------------------------------
- * newList
+ * New List
  * 
- * Constructor that creates a new CustomerNode* array and fills it
- * with nullptr.
+ * Initializes the hash array with nullptr default values.
  ------------------------------------------------------------------*/
 void CustomerList::newList() {
     customers = new CustomerNode*[capacity];
@@ -23,6 +22,7 @@ void CustomerList::newList() {
 /**------------------------------------------------------------------
  * Constructor
  * 
+ * Creates an empty list with an intial prime-number sized array.
  * Constructor that initializes a store's customer list.
  * Postcondition: size is zero, capacity is set to INITIAL_SIZE, and
  * CustomerNode* array is all filled with nullptr.
@@ -83,7 +83,7 @@ int CustomerList::nextPrime(int min) const {
         return nextPrime(min + 1);
     }
     // check for any factors, or check next odd
-    for (int i = 3; i * i <= min; i++) {
+    for (int i = 3; i * i <= min; i += 2) {
         if (min % i == 0) {
             return nextPrime(min + 2);
         }
@@ -92,9 +92,9 @@ int CustomerList::nextPrime(int min) const {
 }
 
 /**------------------------------------------------------------------
- * rehash
+ * Rehash
  * 
- * Roughly doubles the size of the customer list capacity.
+ * Expands the array to at least double its size and rehashes items.
  ------------------------------------------------------------------*/
 void CustomerList::rehash() {
     int oldCapacity = capacity;
@@ -148,7 +148,8 @@ void CustomerList::printAll() {
 /**------------------------------------------------------------------
  * add
  * 
- * Adds a Customer to the store's customer list.
+ * Adds a Customer to the store's customer list. If customer count
+ * exceeds load value, expands the array and rehashes.
  ------------------------------------------------------------------*/
 void CustomerList::add(Customer* customer) {
     if (customer == nullptr) {

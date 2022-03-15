@@ -1,3 +1,10 @@
+/**
+ * @file moviefactory.h
+ * @author Matthew Kim, John Nguyen CSS502 
+ * @brief This class generates movies of the correct subclass.
+ * @date 2022-03-14
+ */
+
 #ifndef _MOVIEFACTORY_H
 #define _MOVIEFACTORY_H
 
