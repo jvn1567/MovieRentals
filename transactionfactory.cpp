@@ -39,9 +39,7 @@ Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerLis
             getline(iss, movieType, ' ');
             customer = customers->get(stoi(rawId));
             movie = MovieFactory::makePartialMovie(movieType[0], iss);
-            if (customer != nullptr) {
-                t = new Borrow(store, customer, movie);
-            }
+            t = new Borrow(store, customer, movie);
             break;
         case 'R' : 
             getline(iss, rawId, ' ');
@@ -49,9 +47,7 @@ Transaction* TransactionFactory::createTransaction(MovieList* store, CustomerLis
             getline(iss, movieType, ' ');
             customer = customers->get(stoi(rawId));
             movie = MovieFactory::makePartialMovie(movieType[0], iss);
-            if (customer != nullptr) {
-                t = new Return(store, customer, movie);
-            }
+            t = new Return(store, customer, movie);
             break;
         case 'I' :
             t = new ViewInventory(store);

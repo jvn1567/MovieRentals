@@ -119,7 +119,6 @@ bool BusinessLogic::processTransactions(string filename) {
     string line = "";
     getline(infile, line);
     while(!infile.eof()) {
-        cout << line << endl; // DEBUG REMOVE BEFORE FINAL
         TransactionFactory tf;
         if (!line.empty()) { //read through each line
             Transaction* t = tf.createTransaction(store, customers, line);
@@ -130,7 +129,7 @@ bool BusinessLogic::processTransactions(string filename) {
                 }
                 delete t;
             } else {
-                cout << "Invalid Command" << endl << endl;
+                cout << "Invalid Command: " << line[0] << endl << endl;
             }
         }
         getline(infile, line);

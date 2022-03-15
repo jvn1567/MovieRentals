@@ -47,7 +47,7 @@ bool Return::doTransaction() const {
         customer->addTransaction("Returned: " + movie->toStringShort());
         return true;
     } else {
-        cout << "Movie was not borrowed." << endl;
+        cout << "Movie was not borrowed by customer." << endl;
     }
     return false;
 }

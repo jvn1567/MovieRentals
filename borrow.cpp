@@ -63,7 +63,6 @@ bool Borrow::doTransaction() const {
             }
         } else {
             cout << "Movie is out of stock." << endl;
-            cout << movie->toStringShort() << endl;    // DEBUG 
 	        delete movie;
         }
         if (temp != nullptr) {

@@ -79,7 +79,7 @@ string Customer::getHistory() const {
         hist += "\n";
     }
     if (history.size() == 0) {
-        hist += "No transctions have been performed.\n";
+        hist += "No transactions have been performed.\n";
     }
     return hist;
 }

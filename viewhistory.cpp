@@ -28,7 +28,7 @@ bool ViewHistory::doTransaction() const {
     if (customer == nullptr) {
         return false;
     } else {
-        cout << "Customer transaction history:" << endl;
+        cout << "Transaction history for customer " << customer->getID() << ":" << endl;
         cout <<  customer->getHistory() << endl;
         return true;
     }
